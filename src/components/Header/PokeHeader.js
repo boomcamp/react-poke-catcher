@@ -8,12 +8,13 @@ const selectStyle = {
   minWidth: '80px',
 };
 
-function PokeSelector({ handleChange, items }) {
+function PokeSelector({ handleChange, items, selectedItem }) {
   return (
     <select
       onChange={e => handleChange(e.target.value)}
       style={selectStyle}
       disabled={!items.length}
+      value={selectedItem}
     >
       {items.map(item => (
         <option key={item.name} value={item.name}>
@@ -40,7 +41,11 @@ function PokeHeader({
   loading,
   regions = [],
   locations = [],
+  changeRegion,
   changeLocation,
+  selectedRegion,
+  selectedLocation,
+  exploreFn,
   areas = [],
 }) {
   return (
@@ -51,13 +56,13 @@ function PokeHeader({
           'Loading...'
         ) : (
           <React.Fragment>
-            <PokeSelector items={regions} />
-            <PokeSelector handleChange={changeLocation} items={locations} />
+            <PokeSelector selectedItem={selectedRegion} handleChange={changeRegion} items={regions} />
+            <PokeSelector selectedItem={selectedLocation} handleChange={changeLocation} items={locations} />
             <PokeSelector items={areas} />
           </React.Fragment>
         )}
       </div>
-      <PokeButton>Explore</PokeButton>
+      <PokeButton explore={exploreFn}>Explore</PokeButton>
     </header>
   );
 }
