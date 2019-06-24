@@ -22,6 +22,9 @@
 .App-link {
   color: #61dafb;
 }
+.pokeImg {
+  width:200px;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -8,10 +8,11 @@ const selectStyle = {
   minWidth: '80px',
 };
 
-function PokeSelector({ handleChange, items }) {
+function PokeSelector({ handleChange, items, leg }) {
   return (
     <select
-      onChange={e => handleChange(e.target.value)}
+      onChange={e => handleChange(e.target)}
+      className={leg}
       style={selectStyle}
       disabled={!items.length}
     >
@@ -36,11 +37,13 @@ const styles = {
   ...flexCenter,
 };
 
+
 function PokeHeader({
   loading,
   regions = [],
   locations = [],
   changeLocation,
+  showPokemons,
   areas = [],
 }) {
   return (
@@ -51,13 +54,13 @@ function PokeHeader({
           'Loading...'
         ) : (
           <React.Fragment>
-            <PokeSelector items={regions} />
-            <PokeSelector handleChange={changeLocation} items={locations} />
-            <PokeSelector items={areas} />
+            <PokeSelector handleChange={changeLocation} items={regions} leg='region'/>
+            <PokeSelector handleChange={changeLocation} items={locations} leg='location' />
+            <PokeSelector handleChange={changeLocation} items={areas} leg='area'/>
           </React.Fragment>
         )}
       </div>
-      <PokeButton>Explore</PokeButton>
+      <PokeButton action={showPokemons}>Explore</PokeButton>
     </header>
   );
 }
