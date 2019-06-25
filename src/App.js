@@ -181,8 +181,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.hideExplore);
-    
     return (
       <React.Fragment>
         <PokeHeader
