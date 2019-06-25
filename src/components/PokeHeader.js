@@ -2,6 +2,8 @@ import React from 'react';
 
 import PokeLogo from './PokeLogo';
 import PokeButton from './PokeButton';
+import PokemonEncounters from './PokemonEncounter';
+import PokemonCaptured from './PokemonCaptured';
 
 const selectStyle = {
   margin: '0 8px',
@@ -45,8 +47,13 @@ function PokeHeader({
   changeLocation,
   showPokemons,
   areas = [],
+  specificPoke={},
+  capturePoke,
+  captured,
+  captureMsg,
 }) {
   return (
+    <div>
     <header style={styles}>
       <PokeLogo />
       <div style={flexCenter}>
@@ -55,13 +62,18 @@ function PokeHeader({
         ) : (
           <React.Fragment>
             <PokeSelector handleChange={changeLocation} items={regions} leg='region'/>
-            <PokeSelector handleChange={changeLocation} items={locations} leg='location' />
+            <PokeSelector handleChange={changeLocation} items={locations} leg='location'/>
             <PokeSelector handleChange={changeLocation} items={areas} leg='area'/>
           </React.Fragment>
         )}
       </div>
       <PokeButton action={showPokemons}>Explore</PokeButton>
     </header>
+      <div className='mainWindow'>
+      <PokemonEncounters capturePoke={capturePoke} selectedPoke={specificPoke} msg={captureMsg}/>
+      <PokemonCaptured items={captured}  />
+      </div>
+    </div>
   );
 }
 

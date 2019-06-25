@@ -3,7 +3,7 @@ import './App.css';
 
 import { pokeApi } from './config/axiosConfig';
 import PokeHeader from './components/PokeHeader';
-import PokemonEncounter from './components/PokemonEncounter';
+// import PokemonEncounter from './components/PokemonEncounter';
 
 class App extends React.Component {
   constructor() {
@@ -15,8 +15,12 @@ class App extends React.Component {
       locations: [],
       areas: [],
       possibleEncounters: [],
+      specificPoke:{},
+      capturedPoke:[],
+      capMsg:''
     };
     this.display = this.display.bind(this);
+    this.capture = this.capture.bind(this);
   }
 
   componentDidMount() {
@@ -59,8 +63,33 @@ class App extends React.Component {
         });
       });
   }
-  display() {
+
+  genRandom(nth){
+    return  Math.floor((Math.random() * nth));
+  }
+
+  showDetails(obj){
+    if(obj){
+    var pokemon = (obj['pokemon']['name']);
+    pokeApi
+      .get('pokemon/'+pokemon)
+      .then(res => res.data )
+      .then(data => {this.setState({specificPoke:data,captureMsg:''})
+      });
     console.log(this.state);
+    }
+
+  } 
+
+
+
+  display() {
+    var posPoke = this.state.possibleEncounters;
+    if(posPoke) {
+    var rand = this.genRandom(posPoke.length); 
+    this.showDetails(posPoke[rand])
+    }
+
   }
   handleLocationChange = (elem) => {
      const category = elem.className;
@@ -139,6 +168,7 @@ class App extends React.Component {
               areas: customRes.areas,
             });
           });
+        console.log(this.state);
      }
      else if(category === 'areas') {
       pokeApi
@@ -154,6 +184,21 @@ class App extends React.Component {
 
   }
 
+  capture() {
+    var current = this.state.capturedPoke.length;
+    if(current<6) {
+    this.setState({
+      capturedPoke:this.state.capturedPoke.concat(this.state.specificPoke),
+      captureMsg:'You captured '+this.state.specificPoke.name,
+      specificPoke:[],
+
+    })
+    } else {
+      alert('Storage is full');
+    } 
+  }
+
+
   render() {
     return (
       <div>
@@ -164,8 +209,11 @@ class App extends React.Component {
         changeLocation={this.handleLocationChange}
         areas={this.state.areas}
         showPokemons={this.display}
+        specificPoke={this.state.specificPoke}
+        capturePoke={this.capture}
+        captured={this.state.capturedPoke}
+        captureMsg={this.state.captureMsg}
       />
-      <PokemonEncounter pokemon={this.state.possibleEncounters}/>
       </div>
     );
   }

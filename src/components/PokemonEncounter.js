@@ -1,30 +1,29 @@
 import React from 'react';
 
-import { pokeApi } from '../config/axiosConfig';
+import Capture from './CaptureButton';
+import Details from './Details'
+// import { pokeApi } from '../config/axiosConfig';
 
-var pokeImg = '';
-function randomN(numRange) {
-	return Math.floor((Math.random() * numRange));
-}
-function showDetails(obj){
-		if(obj){
-		var pokemon = (obj['pokemon']['name']);
-		pokeApi
-			.get('pokemon/'+pokemon)
-			.then(res => {pokeImg = res.data.sprites['front_default'];});
-	}
-}	
 
-function pokemonEncounter(pokemon){
-	console.log(pokemon)
-	if(pokemon) {
-	var random = randomN(pokemon.pokemon.length);
+
+function pokemonEncounter(props){
+
+	if(props) {
+	var msg = props.msg;
+	var pokeDetails = props.selectedPoke;
+	var poke = pokeDetails.name;
+	var pokeImg =pokeDetails.sprites;
+	pokeImg = pokeImg ? pokeImg.front_default : '';
+	console.log(poke);
 	}
-	showDetails(pokemon.pokemon[random]);
 	return(
-		<div>
-		<h1>Pokemon encounters</h1>
-		<img className='pokeImg' src={pokeImg} alt='not found'/>
+		<div className='child'>
+		<h1>Encounters</h1>
+		<h2>{msg}</h2>
+		<h2>{poke}</h2>
+		<img src={pokeImg} className='pokeImg' alt=''/>
+		<Details pokeDetails={pokeDetails?pokeDetails:{}} />
+		<Capture toCapture={props} capture={props.capturePoke}/>
 		</div>
 	);
 
