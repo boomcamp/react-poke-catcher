@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function PokeMsg(props){
     return (
-        <h1>{props.msg}</h1>
+        <h3 className="expore-msg">{props.msg}</h3>
     )
 }

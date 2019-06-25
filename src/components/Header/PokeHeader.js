@@ -39,30 +39,38 @@ const styles = {
 
 function PokeHeader({
   loading,
-  regions = [],
-  locations = [],
   changeRegion,
   changeLocation,
   selectedRegion,
   selectedLocation,
   exploreFn,
+  hideExplore,
+  regions = [],
+  locations = [],
   areas = [],
 }) {
   return (
     <header style={styles}>
       <PokeLogo />
-      <div style={flexCenter}>
-        {loading ? (
-          'Loading...'
-        ) : (
+      {
+        hideExplore ?
+        <span></span> : (
           <React.Fragment>
-            <PokeSelector selectedItem={selectedRegion} handleChange={changeRegion} items={regions} />
-            <PokeSelector selectedItem={selectedLocation} handleChange={changeLocation} items={locations} />
-            <PokeSelector items={areas} />
+          <div style={flexCenter}>
+            {loading ? (
+              'Loading...'
+            ) : (
+              <React.Fragment>
+                <PokeSelector selectedItem={selectedRegion} handleChange={changeRegion} items={regions} />
+                <PokeSelector selectedItem={selectedLocation} handleChange={changeLocation} items={locations} />
+                <PokeSelector items={areas} />
+              </React.Fragment>
+            )}
+          </div>
+          <PokeButton explore={exploreFn}>Explore</PokeButton>
           </React.Fragment>
-        )}
-      </div>
-      <PokeButton explore={exploreFn}>Explore</PokeButton>
+        )
+      }
     </header>
   );
 }
