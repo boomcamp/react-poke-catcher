@@ -2,18 +2,17 @@ import React from 'react';
 
 import PokeLogo from './PokeLogo';
 import PokeButton from './PokeButton';
+import PokeEncounter from './PokeEncounter';
+import '../App.css';
 
-const selectStyle = {
-  margin: '0 8px',
-  minWidth: '80px',
-};
-
-function PokeSelector({ handleChange, items }) {
+function PokeSelector({ handleChange, items, type}) {
+ 
   return (
     <select
-      onChange={e => handleChange(e.target.value)}
-      style={selectStyle}
+      onChange={e => handleChange(e.target)}      
       disabled={!items.length}
+      className='type'
+      id={type}
     >
       {items.map(item => (
         <option key={item.name} value={item.name}>
@@ -24,6 +23,7 @@ function PokeSelector({ handleChange, items }) {
   );
 }
 
+
 const flexCenter = {
   display: 'flex',
   justifyContent: 'space-between',
@@ -32,7 +32,7 @@ const flexCenter = {
 
 const styles = {
   backgroundColor: '#EF5350',
-  padding: '8px',
+  padding: '20px',
   ...flexCenter,
 };
 
@@ -40,10 +40,17 @@ function PokeHeader({
   loading,
   regions = [],
   locations = [],
+  changeRegion,
   changeLocation,
   areas = [],
+  encounters = [],
+  specificPoke = {},
+  capturePok,
+  ShowPoke,
+  captured = [],
 }) {
   return (
+    <div>
     <header style={styles}>
       <PokeLogo />
       <div style={flexCenter}>
@@ -51,15 +58,18 @@ function PokeHeader({
           'Loading...'
         ) : (
           <React.Fragment>
-            <PokeSelector items={regions} />
-            <PokeSelector handleChange={changeLocation} items={locations} />
-            <PokeSelector items={areas} />
+            <PokeSelector handleChange={changeLocation} items={regions} type='reg' enc={encounters} />
+            <PokeSelector handleChange={changeLocation} items={locations} type='loc' enc={encounters} />
+            <PokeSelector handleChange={changeLocation} items={areas} type='area' />
           </React.Fragment>
         )}
       </div>
-      <PokeButton>Explore</PokeButton>
-    </header>
+      <PokeButton explore={ShowPoke}>Explore</PokeButton>
+    </header>    
+    <PokeEncounter enc={specificPoke} capture={capturePok} captured={captured}></PokeEncounter>
+    </div>
   );
 }
+
 
 export default PokeHeader;
