@@ -1,0 +1,103 @@
+.section-one {
+  position: relative;
+  height: 600px;
+  border: 8px solid green;
+  margin: 1.5% 2% 0% 2%;
+  border-radius: 9px;
+  box-shadow: 0 7px 13px #23232796;
+}
+
+.battlefield {
+  background: url(../../assets/images/battlefield-1.png);
+  background-size: 100% 100%;
+}
+
+.pokeball {
+  width: 3%;
+  height: 55%;
+  margin-top: -7px;
+  position: absolute;
+}
+
+.pokemon {
+  height: 584px;
+  margin-left: auto;
+}
+
+.pokemon-img {
+  width: 19%;
+  margin-top: 15%;
+  margin-left: 12%;
+}
+
+.pokemon-label {
+  color: #5a5a5afc;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+
+.pokemon-name {
+  font-size: 24px;
+}
+
+.pokemon-hp {
+  font-size: 22px;
+  float: right;
+  padding-top: 4%;
+}
+
+.shadow {
+  width: 16%;
+  margin: 18.5% 0 0 -14%;
+  position: absolute;
+  height: 44px;
+}
+
+.lifebar {
+  height: 100px;
+  width: 22%;
+  margin-left: 31%;
+  margin-top: -11%;
+  background: url(../../assets/images/lifebar.png) no-repeat;
+  background-size: 100% 100%;
+  padding: 1% 4% 1% 2%;
+}
+
+.lifebar-img {
+  width: 100%;
+}
+
+.ash {
+  position: absolute;
+  height: 200px;
+  bottom: 0;
+  width: 100%;
+}
+
+.ash-img {
+  bottom: 0;
+  position: absolute;
+  width: 18%;
+  margin-left: 8%
+}
+
+.capture-ball {
+  width: 5%;
+  margin-left: 22%;
+  bottom: 5px;
+  position: absolute;
+  opacity: 0.8;
+}
+
+.captured {
+  height: 91px !important;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
