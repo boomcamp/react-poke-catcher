@@ -1,0 +1,38 @@
+/* CAPTURE */
+.section-two {
+  height: 200px;
+  border: 8px solid green;
+  margin: 1.5% 2% 1% 2%;
+  border-radius: 9px;
+  box-shadow: 0 7px 13px #23232796;
+}
+
+.capture-list {
+  padding-top: 10px !important;
+  padding-left: 4%;
+}
+
+.pokemon-item-img {
+  width: 43%;
+}
+
+.pokemon-item{
+  border: 6px solid #464646;
+  display: inline-block;
+  margin: 10px 10px 10px 30px;
+  width: 14%;
+  height: 148px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.max-capture {
+  text-align: center;
+  font-size: 2.3em;
+  margin-top: 3%;
+  color: #172317;
+}
+
+.pokemon-item-img {
+  width: 43%;
+}

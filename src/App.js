@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
-
+import React, { Component } from 'react';
 import { pokeApi } from './config/axiosConfig';
-import PokeHeader from './components/PokeHeader';
 
-class App extends React.Component {
+import Header from './components/Header/Header';
+import SectionOne from './components/Section-one/Section-one';
+import SectionTwo from './components/Section-two/Section-two';
+
+export default class App extends Component {
   constructor() {
     super();
 
@@ -14,6 +15,11 @@ class App extends React.Component {
       locations: [],
       areas: [],
       possibleEncounters: [],
+      explore: false,
+      exploredPokemon: {},
+      capturedPokemon: [],
+      capture: false,
+      maxCapture: false,
     };
   }
 
@@ -58,21 +64,107 @@ class App extends React.Component {
       });
   }
 
-  handleLocationChange = (name) => {
-    console.log('Location: ', name);
+  handleChangeRegion = (value) => {
+    console.log(value);
+    pokeApi.get(`region/${value}`).then(res => {
+      this.setState({
+        locations : res.data.locations
+      })
+     this.handleChangeLocation(res.data.locations[0].name);
+    });
+  }
+
+  handleChangeLocation = (value) => {
+    console.log(value);
+    pokeApi.get(`location/${value}`).then(res => {
+      this.setState({
+        areas : res.data.areas
+      })
+      this.handleChangeArea(res.data.areas[0].name);
+    });
+  }
+
+  handleChangeArea = (value) => {
+    pokeApi.get(`location-area/${value}`)
+      .then(res => {
+        this.setState({
+          possibleEncounters : res.data.pokemon_encounters
+        })
+    });
+  }
+
+  explorePokemon = () => {
+    const pokemonEncountered = this.state.possibleEncounters;
+    let randomNum = Math.floor(Math.random() * pokemonEncountered.length);
+    pokeApi.get(pokemonEncountered[randomNum].pokemon.url)
+      .then(res => {
+        let exploredPokemon = {};
+        exploredPokemon.type = res.data.types[0].type.name;
+        exploredPokemon.name = res.data.species.name;
+        exploredPokemon.img = res.data.sprites.front_default;
+        exploredPokemon.stats = res.data.stats;
+        this.setState({
+          exploredPokemon : exploredPokemon
+        })
+    });
+    this.setState({
+      explore : true,
+      capture: false,
+    })
+  }
+
+  capturePokemon = (name, img) => {
+    let capturedPokemon = {
+      name: name,
+      img: img,
+    }
+
+    if (this.state.capturedPokemon.length < 6) {
+      this.setState({
+        capturedPokemon : [...this.state.capturedPokemon, capturedPokemon],
+      })
+    } else{
+      this.setState({
+        maxCapture : true
+      })
+    }
+
+    this.setState({
+      explore: false,
+      capture: !this.state.capture,
+    })
   }
 
   render() {
     return (
-      <PokeHeader
-        loading={this.state.loading}
-        regions={this.state.regions}
-        locations={this.state.locations}
-        changeLocation={this.handleLocationChange}
-        areas={this.state.areas}
+    <React.Fragment>
+      <Header
+        regions = {this.state.regions}
+        locations = {this.state.locations}
+        areas = {this.state.areas}
+        possibleEncounters = {this.state.possibleEncounters}
+        handleChangeRegionFn = {this.handleChangeRegion}
+        handleChangeLocationFn = {this.handleChangeLocation}
+        handleChangeAreaFn = {this.handleChangeArea}
+        explorePokemonFn = {this.explorePokemon}
       />
+      <div className="container">
+        <div className="row">
+          <SectionOne 
+            explore = {this.state.explore}
+            exploredPokemon = {this.state.exploredPokemon}
+            capture = {this.state.capture}
+            capturePokemonFn = {this.capturePokemon}
+            maxCapture = {this.state.maxCapture}
+          />
+        </div>
+        <div className="row">
+          <SectionTwo 
+            capturedPokemon = {this.state.capturedPokemon}
+          />
+        </div>
+      </div>
+    </React.Fragment>
     );
   }
 }
-
-export default App;
