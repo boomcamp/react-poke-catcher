@@ -5,9 +5,67 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('../src/images/pokeword2.jpg')
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.encounter-container{
+  font-size: 20px;
+  height: 700px;
+  position: relative;
+  flex: 1;
+  width: 45%;
+  box-sizing: border-box;
+  background-color:rgba(236, 229, 229, 0.75);
+  box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.75);
+  margin: 8px;
+}
+.textcontent-h3{
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+  height: 70px;
+}
+.textcontainer{
+background-color:rgba(240, 12, 12, 0.5);
+color: yellow;
+text-shadow: -2px -2px 0 blue, 2px -2px 0 blue, -2px 2px 0 blue, 2px 2px 0 blue;
+padding: 1px;
+margin: 0;
+width: 100%;
+text-align: center;
+text-transform: uppercase;
+}
+.detailed{
+  display: flex;
+}
+
+
+.capture-container{
+  position: absolute;
+  top: 51px;
+  right: 10px;
+  font-size: 20px;
+  height: 700px;
+  width: 45%;
+  box-sizing: border-box;
+  background-color:rgba(236, 229, 229, 0.75);
+  box-shadow: 5px 5px 7px 0px rgba(0,0,0,0.75);
+  margin: 8px;
+}
+.capture-list{
+  color:red;
+}
+
+.list{
+margin-top: 30px;
+width: 50%;
+}
+.capturedlist-item{
+  border: 1px solid red;
+  display: flex;
 }
