@@ -1,18 +1,12 @@
 import React from 'react';
 
-import PokeLogo from './PokeLogo';
-import PokeButton from './PokeButton';
+import Pokeball from './Pokeball';
 
-const selectStyle = {
-  margin: '0 8px',
-  minWidth: '80px',
-};
-
-function PokeSelector({ handleChange, items }) {
+function Pokeselector({ handleChange, items }) {
   return (
     <select
       onChange={e => handleChange(e.target.value)}
-      style={selectStyle}
+      style={dropdown}
       disabled={!items.length}
     >
       {items.map(item => (
@@ -24,42 +18,37 @@ function PokeSelector({ handleChange, items }) {
   );
 }
 
-const flexCenter = {
+const dropdown = {
+    border: '1px solid gray',
+    borderRadius: '6px',
+    padding: '10px 30px 10px 20px',
+    backgroundColor: '#ffffff',
+    cursor: 'pointer',
+    margin: '0 25px 0 25px',
+
+}
+
+const header = {
+  backgroundColor: '#2f7ce4',
+  padding: '9px',
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   alignItems: 'center',
-};
+}
 
-const styles = {
-  backgroundColor: '#EF5350',
-  padding: '8px',
-  ...flexCenter,
-};
-
-function PokeHeader({
-  loading,
-  regions = [],
-  locations = [],
-  changeLocation,
-  areas = [],
-}) {
+function Header({regions = [], locations = [], areas = [],changeRegion, changeLocation, changeArea, handleExplore, possibleEncounters}) {
+  
   return (
-    <header style={styles}>
-      <PokeLogo />
-      <div style={flexCenter}>
-        {loading ? (
-          'Loading...'
-        ) : (
-          <React.Fragment>
-            <PokeSelector items={regions} />
-            <PokeSelector handleChange={changeLocation} items={locations} />
-            <PokeSelector items={areas} />
-          </React.Fragment>
-        )}
-      </div>
-      <PokeButton>Explore</PokeButton>
+    <header style={header}>
+      <img src="http://pngimg.com/uploads/pokemon_logo/pokemon_logo_PNG3.png" alt="logo" height="50" width="115" />
+
+      <Pokeselector handleChange={changeRegion} items={regions} />
+      <Pokeselector handleChange={changeLocation} items={locations} />
+      <Pokeselector handleChange={changeArea} items={areas} />
+
+     <Pokeball possibleEncounters={possibleEncounters}handleExplore={handleExplore} />
     </header>
   );
 }
 
-export default PokeHeader;
+export default Header;
