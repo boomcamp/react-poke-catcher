@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Acme&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap'); 
+
 .App {
   text-align: center;
 }
@@ -18,9 +21,30 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.containerStyle{
+  font-family: 'Permanent Marker', cursive;
+}
 .App-link {
   color: #61dafb;
+}
+.type {
+  font-family: 'Acme', sans-serif;
+ font-size: 2px; 
+ margin: 0 8px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  background-color: #5bc0de;
+}
+.pokeball{
+  width: 35%;
+  margin-bottom: 10px;
+}
+
+.pokeball:hover{
+  width: 37%;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
