@@ -136,6 +136,23 @@ class App extends React.Component {
     });
   }
 
+  handleAreaChange = (name) => {
+    this.setState({ 
+      loading: true,
+      selectedArea: name,
+      pokemon_encounter: [],
+    });
+
+    pokeApi.get(`location-area/${name}`)
+      .then(res => {
+        this.setState({
+          loading: false,
+          pokemon_encounters: res.data.pokemon_encounters,
+          pokeMsg: "Please press Explore button to search a Pokemon!",
+        });
+      })
+  }
+
   explorePokemo = () => {
     let newMsg = "";
     const { pokemon_encounters } = this.state;
@@ -191,9 +208,11 @@ class App extends React.Component {
           hideExplore={ this.state.hideExplore }
           selectedRegion={this.state.selectedRegion}
           selectedLocation={this.state.selectedLocation}
+          selectedArea={this.state.selectedArea}
 
           changeRegion={this.handleRegionChange}
           changeLocation={this.handleLocationChange}
+          changeArea={this.handleAreaChange}
           exploreFn={this.explorePokemo}
         />
         <PokeMsg msg={this.state.pokeMsg}/>

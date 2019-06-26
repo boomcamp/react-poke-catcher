@@ -41,8 +41,10 @@ function PokeHeader({
   loading,
   changeRegion,
   changeLocation,
+  changeArea,
   selectedRegion,
   selectedLocation,
+  selectedArea,
   exploreFn,
   hideExplore,
   regions = [],
@@ -63,7 +65,7 @@ function PokeHeader({
               <React.Fragment>
                 <PokeSelector selectedItem={selectedRegion} handleChange={changeRegion} items={regions} />
                 <PokeSelector selectedItem={selectedLocation} handleChange={changeLocation} items={locations} />
-                <PokeSelector items={areas} />
+                <PokeSelector selectedItem={selectedArea} handleChange={changeArea} items={areas} />
               </React.Fragment>
             )}
           </div>
