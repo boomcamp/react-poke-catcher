@@ -127,7 +127,7 @@ class App extends React.Component {
               }); 
             } else {
            
-              return customRes; }
+              return customRes; } 
           })
           .then(customRes => {
   
