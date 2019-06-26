@@ -1,0 +1,84 @@
+.PokeHeader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: black;
+    background: white;
+    width: 500px;
+    padding: 20px;
+    margin: 30px auto;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
+    position: relative;
+}
+
+    .PokeHeader::before { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+      .PokeHeader::after { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+
+      .PokeHeader::before { 
+        left: -10px
+      }
+      .PokeHeader::after { 
+        right: -10px
+      }
+
+.regions{
+    height: 30px;
+}
+
+
+.PokeEncounter{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: black;
+  background: white;
+  width: 500px;
+  padding: 20px;
+  margin: 30px auto;
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+  position: relative;
+}
+
+  .PokeEncounter::before { 
+      content: '';
+      top: 0;
+      width: 10px;
+      height: 100%;
+      position: absolute;
+      background: black;
+    }
+    .PokeEncounter::after { 
+      content: '';
+      top: 0;
+      width: 10px;
+      height: 100%;
+      position: absolute;
+      background: black;
+    }
+
+    .PokeEncounter::before { 
+      left: -10px
+    }
+    .PokeEncounter::after { 
+      right: -10px
+    }
+
+
+   
+   
