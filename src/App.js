@@ -3,7 +3,7 @@ import './App.css';
 
 import PokeHeader from './components/header/PokeHeader';
 import PokeEncounter from './components/encounter/PokeEncounter';
-// import { pokeApi } from './config/PokeConfig'
+import Axios from 'axios';
 
 class App extends React.Component {
   constructor() {
@@ -14,22 +14,60 @@ class App extends React.Component {
       regions: [],
       locations: [],
       areas: [],
-      possibleEncounters: [],
-      theUrl: ''
+      pokemon: '',
+      encounterUrl: '',
+      pokeSprite: '',
+      pokeSpritePic: 'https://via.placeholder.com/150',
     };
   
   }
 
-  showEncounters(url){
-    console.log('yeys' , url)
+  showSprite = (url) => {
+      Axios
+      .get(url)
+      .then(res => this.setState({pokeSpritePic : res.data.sprites.front_default}))
   }
+  
+  showEncounters = (url) =>{ 
+    this.setState({
+      encounterUrl: url
+    }, () => {
+      console.log(this.state.encounterUrl)
+      this.getRandPokemon()
+     
+    })
+  }
+
+  getRandPokemon(){
+    Axios
+    .get(this.state.encounterUrl)
+    .then(res => {
+      var randPokemon = Math.floor(Math.random() * Math.floor(res.data.pokemon_encounters.length))
+      this.setState({
+        pokemon: res.data.pokemon_encounters[randPokemon],
+        pokeSprite: res.data.pokemon_encounters[randPokemon].pokemon.url
+      },
+    () => {
+        console.log("GETRANDPOKEMON")
+        console.log(this.state.pokemon);
+        console.log('yayayayay',this.state.pokeSprite)
+        this.showSprite(this.state.pokeSprite)
+        
+    }
+    )
+    })
+
+    return this.state.pokemon
+}
+
+
 
   render() {
     return (
       <div>
       <PokeHeader showEncounters = {this.showEncounters}/>
       <h1>{this.state.theUrl}</h1>
-      <PokeEncounter />
+      <PokeEncounter pokemon = {this.state.pokemon}  pokeSpritePic = {this.state.pokeSpritePic}/>
       </div>
       
     

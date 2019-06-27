@@ -19,7 +19,6 @@ class PokeHeader extends React.Component {
       regionUrl: '',
       locationUrl: '',
       exploreUrl: '',
-     
     }
     this.regionUrl = this.regionUrl.bind(this);
     this.locationUrl = this.locationUrl.bind(this);
@@ -35,9 +34,8 @@ class PokeHeader extends React.Component {
         regions: res.data.results
       })
       })
+     
   }
-
-  
 
   showEncounter = (url) => {
     // Axios
@@ -101,11 +99,12 @@ class PokeHeader extends React.Component {
 
   render(props) {
     return <div className='PokeHeader'>
-        <h1>Header</h1>
-        <Regions region={this.state.regions} regionUrl = {this.regionUrl} />
+        <h1>Pokomon</h1>
+        <Regions region={this.state.regions} regionUrl = {this.regionUrl} value="hoenn" />
         <Locations region={this.state.locations} getAreasUrl = {this.getAreasUrl} />
         <Areas region={this.state.areas} getExploreUrl = {this.getExploreUrl} />
-        <button onClick={this.props.showEncounters(this.exploreUrl)}>Explore</button>
+        
+        <button onClick={() => { this.props.showEncounters(this.state.exploreUrl) }}>Explore</button>
     </div>;
   }
 }
