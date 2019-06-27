@@ -1,0 +1,43 @@
+
+.PokeBag{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    background: white;
+    width: 500px;
+    padding: 20px;
+    margin: 30px auto;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
+    position: relative;
+  }
+  
+    .PokeBag::before { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+      .PokeBag::after { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+  
+      .PokeBag::before { 
+        left: -10px
+      }
+      .PokeBag::after { 
+        right: -10px
+      }
+  
+  
+     
+     

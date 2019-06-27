@@ -4,6 +4,7 @@ import './App.css';
 import PokeHeader from './components/header/PokeHeader';
 import PokeEncounter from './components/encounter/PokeEncounter';
 import PokeStats from './components/stats/PokeStats';
+import PokeBag from './components/bag/PokeBag';
 import Axios from 'axios';
 
 class App extends React.Component {
@@ -20,8 +21,17 @@ class App extends React.Component {
       pokeSprite: '',
       pokeSpritePic: 'https://via.placeholder.com/150',
       pokeStats:'',
+      capturedPokemon: [],
     };
   
+  }
+
+  addToBag = () =>{
+    this.setState({
+      capturedPokemon: [...this.state.capturedPokemon, this.state.pokeSpritePic],
+      pokemon:'',
+      pokeSpritePic: 'https://via.placeholder.com/150',
+    })
   }
   showSprite = (url) => {
       Axios
@@ -69,8 +79,9 @@ class App extends React.Component {
       <div>
       <PokeHeader showEncounters = {this.showEncounters}/>
       <h1>{this.state.theUrl}</h1>
-      <PokeEncounter pokemon = {this.state.pokemon}  pokeSpritePic = {this.state.pokeSpritePic}/>
+      <PokeEncounter pokemon = {this.state.pokemon}  pokeSpritePic = {this.state.pokeSpritePic} addToBag = {this.addToBag}/>
       <PokeStats pokeStats = {this.state.pokeStats}/>
+      <PokeBag capturedPokemon = {this.state.capturedPokemon} />
       </div>
      
       

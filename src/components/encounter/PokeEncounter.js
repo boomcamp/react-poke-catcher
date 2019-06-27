@@ -25,6 +25,8 @@ class PokeEncounter extends React.Component{
             <p id='p1'></p>
             
             <img src={this.props.pokeSpritePic} height="100" width="100"></img>
+
+            <button onClick={() => this.props.addToBag() }>Capture</button>
             </div>
         )
     }

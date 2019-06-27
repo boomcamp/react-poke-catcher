@@ -23,7 +23,7 @@ class PokeStats extends React.Component{
             
             : console.log('s')
           ))} */}
-           {this.props.pokeStats ? this.props.pokeStats.map(name => <h2>{name.stat.name} : {name.base_stat}</h2>): console.log('none')}
+           {this.props.pokeStats ? this.props.pokeStats.map(name => <h2 key={name.stat.name}>{name.stat.name} : {name.base_stat}</h2>): console.log('none')}
             
             </div>
         )
