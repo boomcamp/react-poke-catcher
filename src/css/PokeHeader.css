@@ -1,0 +1,42 @@
+.PokeHeader{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: black;
+    background: white;
+    width: 800px;
+    padding: 20px;
+    margin: 30px auto;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
+    position: relative;
+}
+
+    .PokeHeader::before { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+      .PokeHeader::after { 
+        content: '';
+        top: 0;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        background: black;
+      }
+
+      .PokeHeader::before { 
+        left: -10px
+      }
+      .PokeHeader::after { 
+        right: -10px
+      }
+
+.regions{
+    height: 30px;
+}
+

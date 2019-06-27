@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import { pokeApi } from './config/axiosConfig';
-import PokeHeader from './components/PokeHeader';
+import PokeHeader from './components/header/PokeHeader';
+import PokeEncounter from './components/encounter/PokeEncounter';
+import PokeStats from './components/stats/PokeStats';
+import PokeBag from './components/bag/PokeBag';
+import Axios from 'axios';
 
 class App extends React.Component {
   constructor() {
@@ -13,65 +16,77 @@ class App extends React.Component {
       regions: [],
       locations: [],
       areas: [],
-      possibleEncounters: [],
+      pokemon: '',
+      encounterUrl: '',
+      pokeSprite: '',
+      pokeSpritePic: 'https://via.placeholder.com/150',
+      pokeStats:'',
+      capturedPokemon: [],
     };
+  
   }
 
-  componentDidMount() {
-    pokeApi
-      .get('region')
-      .then(res => {
-        return {
-          regions: res.data.results,
-        };
-      })
-      .then(customRes => {
-        return pokeApi.get(`region/${customRes.regions[0].name}`).then(res => {
-          customRes.locations = res.data.locations;
-          return customRes;
-        });
-      })
-      .then(customRes => {
-        return pokeApi
-          .get(`location/${customRes.locations[0].name}`)
-          .then(res => {
-            customRes.areas = res.data.areas;
-            return customRes;
-          });
-      })
-      .then(customRes => {
-        return pokeApi
-          .get(`location-area/${customRes.areas[0].name}`)
-          .then(res => {
-            customRes.possibleEncounters = res.data.pokemon_encounters;
-            return customRes;
-          });
-      })
-      .then(customRes => {
-        this.setState({
-          loading: false,
-          regions: customRes.regions,
-          locations: customRes.locations,
-          areas: customRes.areas,
-          possibleEncounters: customRes.possibleEncounters,
-        });
-      });
+  addToBag = () =>{
+    this.setState({
+      capturedPokemon: [...this.state.capturedPokemon, this.state.pokeSpritePic],
+      pokemon:'',
+      pokeSpritePic: 'https://via.placeholder.com/150',
+    })
+  }
+  showSprite = (url) => {
+      Axios
+      .get(url)
+      .then(res => {this.setState({
+        pokeSpritePic : res.data.sprites.front_default,
+        pokeStats:res.data.stats,
+      })})
+  }
+  
+  showEncounters = (url) =>{ 
+    this.setState({
+      encounterUrl: url
+    }, () => {
+      console.log(this.state.encounterUrl)
+      this.getRandPokemon()
+     
+    })
   }
 
-  handleLocationChange = (name) => {
-    console.log('Location: ', name);
-  }
+  getRandPokemon(){
+    Axios
+    .get(this.state.encounterUrl)
+    .then(res => {
+      var randPokemon = Math.floor(Math.random() * Math.floor(res.data.pokemon_encounters.length))
+      this.setState({
+        pokemon: res.data.pokemon_encounters[randPokemon],
+        pokeSprite: res.data.pokemon_encounters[randPokemon].pokemon.url,
+       
+      },
+    () => {
+        console.log("GETRANDPOKEMON")
+        console.log(this.state.pokemon);
+        console.log('yayayayay',this.state.pokeSprite)
+        this.showSprite(this.state.pokeSprite)
+        
+    }
+    )
+    })
 
+    return this.state.pokemon
+}
   render() {
     return (
-      <PokeHeader
-        loading={this.state.loading}
-        regions={this.state.regions}
-        locations={this.state.locations}
-        changeLocation={this.handleLocationChange}
-        areas={this.state.areas}
-      />
-    );
+      <div>
+      <PokeHeader showEncounters = {this.showEncounters}/>
+      <h1>{this.state.theUrl}</h1>
+      <PokeEncounter pokemon = {this.state.pokemon}  pokeSpritePic = {this.state.pokeSpritePic} addToBag = {this.addToBag}/>
+      <PokeStats pokeStats = {this.state.pokeStats}/>
+      <PokeBag capturedPokemon = {this.state.capturedPokemon} />
+      </div>
+     
+      
+    
+      )
   }
 }
 
