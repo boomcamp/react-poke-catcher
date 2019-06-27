@@ -1,18 +1,19 @@
-.PokeHeader{
+.PokeStats{
     display: flex;
     justify-content: space-around;
+    flex-direction: column;
     align-items: center;
     color: black;
     background: white;
-    width: 800px;
+    width: 500px;
     padding: 20px;
     margin: 30px auto;
     border-top: 10px solid black;
     border-bottom: 10px solid black;
     position: relative;
-}
-
-    .PokeHeader::before { 
+  }
+  
+    .PokeStats::before { 
         content: '';
         top: 0;
         width: 10px;
@@ -20,7 +21,7 @@
         position: absolute;
         background: black;
       }
-      .PokeHeader::after { 
+      .PokeStats::after { 
         content: '';
         top: 0;
         width: 10px;
@@ -28,15 +29,14 @@
         position: absolute;
         background: black;
       }
-
-      .PokeHeader::before { 
+  
+      .PokeStats::before { 
         left: -10px
       }
-      .PokeHeader::after { 
+      .PokeStats::after { 
         right: -10px
       }
-
-.regions{
-    height: 30px;
-}
-
+  
+  
+     
+     
